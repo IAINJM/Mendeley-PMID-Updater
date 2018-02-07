@@ -1,5 +1,7 @@
-# Mendeley PMID Updater
+# Mendeley PMID Updater for Windows
 
+##Full Source Code Discloser
+[Mendeley PMID Updater for Mac / Linux](https://github.com/powerpak/mendeley-pmid-updater)
 [Mendeley](http://www.mendeley.com/) is a pretty nice (and free!) reference manager that syncs to an online account (currently with 2GB of  storage for free accounts).  While it imports PDFs as citable references with remarkable accuracy, and is wonderful for a cite-while-you-write workflow, it doesn't always pick up PMIDs and PMCIDs.  Certain citation styles, such as [those used by the NIH for grant proposals](http://publicaccess.nih.gov/include-pmcid-citations.htm), require you to add these IDs to your bibliography.
 
 This little script attempts to fix that.  It scans your Mendeley database for journal articles and does the following:
