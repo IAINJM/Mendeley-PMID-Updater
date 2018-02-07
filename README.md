@@ -2,42 +2,34 @@
 
 ## Full Source Code Discloser
 
-[Mendeley PMID Updater for Mac / Linux](https://github.com/powerpak/mendeley-pmid-updater) by [Theodore Pak](https://github.com/powerpak).
+This is an adaptation of the code from [Mendeley PMID Updater for Mac / Linux](https://github.com/powerpak/mendeley-pmid-updater) by [Theodore Pak](https://github.com/powerpak), which has been updated to allow the script to run in Windows.
 [Mendeley](http://www.mendeley.com/) is a pretty nice (and free!) reference manager that syncs to an online account (currently with 2GB of  storage for free accounts).  While it imports PDFs as citable references with remarkable accuracy, and is wonderful for a cite-while-you-write workflow, it doesn't always pick up PMIDs and PMCIDs.  Certain citation styles, such as [those used by the NIH for grant proposals](http://publicaccess.nih.gov/include-pmcid-citations.htm), require you to add these IDs to your bibliography.
 
-This little script attempts to fix that.  It scans your Mendeley database for journal articles and does the following:
+It scans your Mendeley database for journal articles and does the following:
 
 1. If the PMID is available, it is used to retrieve the PMCID and DOI.
 2. If there is no PMID, but the DOI is available, it is used to retrieve the PMCID and PMID.
 
 Whatever can be retrieved that is not present in your database is updated accordingly.
 
-**Bonus Feature**: Mendeley has an annoying bug where if an author's first name(s) are fetched and they include the initial "A", it gets saved as a lower case "a", producing citations like "Smith J a" instead of the expected "Smith JA". This script fixes those names as well.
 
 The [PMC ID Converter](http://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/) and [EUtils](http://www.ncbi.nlm.nih.gov/books/NBK25501/) APIs are used to try to match your IDs, in that respective order.
 
-## Fair Warning
+## Data Backup
 
-**Read this carefully.** Although this tool is fairly paranoid and backs up your Mendeley database before touching it—every time it runs, as a separate file into `backups/`, *even* on dry runs when no data will be written—it does operate outside of Mendeley's public APIs for accessing your data.  It *could* very well blow away your database or overwrite it in ways that you do not like.  At some point I may rewrite this to use [Mendeley's API](http://dev.mendeley.com/slate/) so that it works on your online account's data, but that would require me to set up OAuth2 and a whole lot of Not Fun things, so no go for now.
+**Read this carefully.** This will back-up your Mendeley database every time it runs, as a separate file into a sub-folder, `backups/`.  However, it does operate outside of Mendeley's public APIs for accessing your data. 
 
-If losing data concerns you, and it should, backup your Mendeley library before using this.  You can do this by running Mendeley and looking in the `Help` menu for `Create Backup...`
+If losing data concerns you, and it should, manually backup your Mendeley library before using this.  You can do this by running Mendeley and looking in the `Help` menu for `Create Backup...`
 
-The script operates locally on your Mendeley database, which ends in `.sqlite` and is named after your Mendeley username, and will be found in one of the following folders:
+The script operates locally on your Mendeley database, which ends in `.sqlite` and is named after your Mendeley username, and can be found in:
 
-* Mac OS X: ~/Library/Application Support/Mendeley Desktop/
-* Linux: ~/.local/share/data/Mendeley Ltd./Mendeley Desktop/
+* %userprofile%\AppData\Local\Mendeley Ltd\Mendeley Desktop
 
 When you make a backup as previously described, Mendeley hands you a ZIP archive of this folder, which will also include all the files for your imported articles.  This script simply copies the aforementioned `.sqlite` file into a `backups` folder before it operates on it.
 
 ## Requirements
 
-Linux and Mac computers are supported.  You'll need Ruby ≥1.9.2, RubyGems, and some basic gems, which will be installed with Bundler.
-
-On most Macs, you'll only need to run `sudo gem install bundler` because you already have Ruby 2.0.0 and RubyGems, as of Mavericks (10.9).
-
-On Linux, I defer either to your package manager or your raging desire to build from source.
-
-In both cases, [rbenv](https://github.com/sstephenson/rbenv) might help if your system Ruby is out of date.
+You'll need Ruby ≥1.9.2, RubyGems, and some basic gems, which will be installed with Bundler.
 
 ## Usage
 
